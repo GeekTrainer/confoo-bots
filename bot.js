@@ -7,16 +7,23 @@ const connector = new builder.ChatConnector({
 
 const bot = new builder.UniversalBot(connector, [
     (session, args, next) => {
-        const botName = 'ConFoo Bot';
-        const description = `Answer simple questions about a conference`;
+        session.send(`Hi there! I'm the ConFoo bot. What would you like to do?`);
 
-        session.send(`Hi there! I'm ${botName}`);
-        session.send(`In a nutshell, here's what I can do:\n\n${description}`);
+        const card = new builder.ThumbnailCard(session);
+        card.buttons(
+            new builder.CardAction(session)
+                .title('Find session')
+                .value('Find session')
+        );
 
-        builder.Prompts.text(session, `What's your name?`);
+        const message = new builder.Message(session).addAttachment(card);
+        session.endConversation(message);
     },
-    (session, results, next) => {
-        session.endConversation(`Welcome, ${results.response}`);
+]);
+
+bot.dialog('find-session', [
+    (session) => { 
+        session.endConversation('in find-session');
     }
 ]);
 
