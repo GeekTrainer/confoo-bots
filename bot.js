@@ -14,6 +14,7 @@ const bot = new builder.UniversalBot(connector, [
             new builder.CardAction(session)
                 .title('Find session')
                 .value('Find session')
+                .type('IMBack')
         );
 
         const message = new builder.Message(session).addAttachment(card);
