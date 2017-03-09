@@ -20,4 +20,13 @@ const bot = new builder.UniversalBot(connector, [
     }
 ]);
 
+bot.dialog('help', (session) => {
+    session.endDialog('I can answer questions about ConFoo.');
+}).triggerAction({
+    matches: /^help$/,
+    onSelectAction: (session, args) => {
+        session.beginDialog(args.action, args);
+    }
+})
+
 module.exports = bot;
